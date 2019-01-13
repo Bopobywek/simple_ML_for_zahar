@@ -2,21 +2,21 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QDialog
-from auth2_d import Ui_Dialog
+from codereader_d import Ui_Dialog
 from PyQt5.QtCore import QTimer
 from frame_editor import FrameEditor
 import cv2
 
 
-class Auth2(QDialog, Ui_Dialog):
+class CodeReader(QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.running = True
-        self.auth_state = False
+        self.info_product = None
         self.timer = QTimer(self)
         self.image = None
-        self.exitButton.clicked.connect(self.off)
+        self.pushButton.clicked.connect(self.off)
         self.camera = cv2.VideoCapture(0)
         self.start_camera()
 
@@ -29,9 +29,9 @@ class Auth2(QDialog, Ui_Dialog):
 
     def update_frame(self):
         _, self.image = self.camera.read()
-        result = FrameEditor(self.image, "acc").returnframe()
+        result = FrameEditor(self.image, "product").returnframe()
         if result:
-            self.auth_state = True
+            self.info_product = result
             self.stop_camera()
             self.off()
         self.display_image()
@@ -53,7 +53,7 @@ class Auth2(QDialog, Ui_Dialog):
         self.close()
 
     def closeEvent(self, event):
-        if self.sender() == self.exitButton or self.auth_state:
+        if self.sender() == self.pushButton or self.info_product:
             event.accept()
         else:
             event.ignore()
@@ -61,6 +61,6 @@ class Auth2(QDialog, Ui_Dialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    auth = Auth2()
-    auth.show()
+    reader = CodeReader()
+    reader.show()
     sys.exit(app.exec_())

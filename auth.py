@@ -14,9 +14,9 @@ class Auth(QDialog, Ui_Dialog):
         self.status = False
 
     def run(self):
-        auth2 = Auth2()
-        auth2.exec_()
-        if auth2.auth_state:
+        self.auth2 = Auth2()
+        self.auth2.exec_()
+        if self.auth2.auth_state:
             self.status = True
             self.close()
 
