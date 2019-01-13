@@ -43,6 +43,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Корзина"))
-        self.label.setText(_translate("Dialog", "Наведите на камеру qr-код продукта"))
+        self.label.setText(_translate("Dialog", "Наведите на камеру штрих-код продукта"))
         self.pushButton.setText(_translate("Dialog", "Вернуться обратно"))
 

@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.label.setGeometry(QtCore.QRect(25, 239, 421, 51))
         font = QtGui.QFont()
         font.setFamily("Ubuntu Condensed")
-        font.setPointSize(20)
+        font.setPointSize(13)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
@@ -40,6 +40,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Вход"))
-        self.label.setText(_translate("Dialog", "Приложите скидочную карту"))
+        self.label.setText(_translate("Dialog", "Наведите на камеру уникальный qr-код на Вашей карте"))
         self.exitButton.setText(_translate("Dialog", "Вернуться обратно"))
 

@@ -1,9 +1,11 @@
 import sys
+import json
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QDialog, QMessageBox
 from cart_d import Ui_Dialog
 from auth import Auth
-from  codereader import CodeReader
+from codereader import CodeReader
+from lister import Lister
 
 
 class Cart(QDialog, Ui_Dialog):
@@ -16,6 +18,10 @@ class Cart(QDialog, Ui_Dialog):
         self.add_to_cart.clicked.connect(self.append_product)
         self.product_cost.clicked.connect(self.cost_of_product)
         self.add_to_cart_2.clicked.connect(self.delete_product)
+        self.create_list.clicked.connect(self.create_list_user)
+        self.audio_request.clicked.connect(self.use_microphone)
+        self.list_of_items = []
+        self.call_a_shopman.clicked.connect(self.help)
 
     def start(self):
         self.main_menu = Auth()
@@ -26,12 +32,25 @@ class Cart(QDialog, Ui_Dialog):
         reader.exec_()
         if reader.info_product:
             self.user_cart.addItem(reader.info_product["name"])
+        if reader.info_product["name"] in self.list_of_items:
+            self.user_list.takeItem(self.list_of_items.index(reader.info_product["name"]))
+            del self.list_of_items[self.list_of_items.index(reader.info_product["name"])]
 
     def delete_product(self):
-        self.user_cart.item(self.user_cart.currentIndex())
+        for el in self.user_cart.selectedItems():
+            self.user_cart.takeItem(self.user_cart.row(el))
 
     def use_microphone(self):
-        pass
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.resize(300, 300)
+        msg.move(self.x(), self.y())
+        msg.setText("Ошибка")
+        msg.setWindowTitle("Ошибка")
+        msg.setText("В публичной версии эта функция не работает."
+                    " Требуются приватные ключи авторизации в API")
+        msg.setStandardButtons(QMessageBox.Cancel)
+        msg.exec_()
 
     def exit_from_acc(self):
         self.main_menu.status = False
@@ -48,7 +67,7 @@ class Cart(QDialog, Ui_Dialog):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.resize(300, 300)
-        msg.move(self.x() + 300, self.y() + 350)
+        msg.move(self.x(), self.y())
         msg.setText("Цена:")
         msg.setWindowTitle("Цена этого продукта")
         msg.setText("{}P".format(cost))
@@ -56,10 +75,30 @@ class Cart(QDialog, Ui_Dialog):
         msg.exec_()
         
     def help(self):
-        pass
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.resize(300, 300)
+        msg.move(self.x(), self.y())
+        msg.setText("Ошибка")
+        msg.setWindowTitle("Ошибка")
+        msg.setText("В публичной версии эта функция не работает."
+                    " Требуются приватные ключи авторизации в API")
+        msg.setStandardButtons(QMessageBox.Cancel)
+        msg.exec_()
 
-    def create_list(self):
-        pass
+    def create_list_user(self):
+        lister = Lister(self.list_of_items.copy())
+        lister.exec_()
+        self.list_of_items = lister.user_list_list.copy()
+        for i in range(self.user_list.count()):
+            self.user_list.takeItem(i)
+        for el in self.list_of_items:
+            self.user_list.addItem(el)
+        cost = 0
+        for el in self.list_of_items:
+            cost_data = json.loads(open("data/products2.json").read())
+            cost += cost_data[el]
+        self.label_2.setText("Итого: {}Р".format(cost))
 
 
 if __name__ == '__main__':

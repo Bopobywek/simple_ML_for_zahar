@@ -100,6 +100,6 @@ class Ui_Dialog(object):
         self.product_cost.setText(_translate("Dialog", "Узнать цену продукта"))
         self.add_to_cart_2.setText(_translate("Dialog", "Убрать продукт из корзины"))
         self.add_to_cart.setText(_translate("Dialog", "Добавить продукт в корзину"))
-        self.create_list.setText(_translate("Dialog", "Создать список"))
+        self.create_list.setText(_translate("Dialog", "Изменить список"))
         self.label_2.setText(_translate("Dialog", "Итого: 0"))
 

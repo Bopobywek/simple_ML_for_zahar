@@ -38,15 +38,16 @@ class Auth2(QDialog, Ui_Dialog):
 
     def display_image(self):
         qformat = QImage.Format_Indexed8
-        if len(self.image.shape) == 3:
-            if self.image.shape[2] == 4:
-                qformat = QImage.Format_RGBA8888
-            else:
-                qformat = QImage.Format_RGB888
-        out_image = QImage(self.image, self.image.shape[1], self.image.shape[0], self.image.strides[0], qformat)
-        out_image = out_image.rgbSwapped()
-        self.label_2.setPixmap(QPixmap.fromImage(out_image))
-        self.label_2.setScaledContents(True)
+        if self.image is not None:
+            if len(self.image.shape) == 3:
+                if self.image.shape[2] == 4:
+                    qformat = QImage.Format_RGBA8888
+                else:
+                    qformat = QImage.Format_RGB888
+            out_image = QImage(self.image, self.image.shape[1], self.image.shape[0], self.image.strides[0], qformat)
+            out_image = out_image.rgbSwapped()
+            self.label_2.setPixmap(QPixmap.fromImage(out_image))
+            self.label_2.setScaledContents(True)
 
     def off(self):
         self.camera.release()
