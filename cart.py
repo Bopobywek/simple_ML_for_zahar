@@ -90,14 +90,17 @@ class Cart(QDialog, Ui_Dialog):
         lister = Lister(self.list_of_items.copy())
         lister.exec_()
         self.list_of_items = lister.user_list_list.copy()
-        if self.user_list.count() == 0:
-            for el in self.list_of_items:
-                self.user_list.addItem(el)
+        self.user_list.clear()
+        for el in self.list_of_items:
+            self.user_list.addItem(el)
         cost = 0
         for el in self.list_of_items:
             cost_data = json.loads(open("data/products2.json").read())
             cost += cost_data[el]
-        self.label_2.setText("Итого: {}Р".format(cost))
+        if cost <= 9999:
+            self.label_2.setText("Итого: {}Р".format(cost))
+        else:
+            self.label_2.setText("Итого: 9999Р+".format(cost))
 
 
 if __name__ == '__main__':
