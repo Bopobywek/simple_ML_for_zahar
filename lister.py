@@ -30,6 +30,7 @@ class Lister(QDialog, Ui_Dialog):
                 self.listWidget.addItem(data[self.rules[self.sender().objectName()]]["name"])
 
     def off(self):
+        self.user_list_list.clear()
         self.user_list_list.extend([self.listWidget.item(i).text() for i in range(self.listWidget.count())])
         self.close()
 
