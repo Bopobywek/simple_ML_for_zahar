@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.label.setGeometry(QtCore.QRect(10, 20, 461, 261))
         font = QtGui.QFont()
         font.setFamily("Ubuntu Condensed")
-        font.setPointSize(31)
+        font.setPointSize(15)
         self.label.setFont(font)
         self.label.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -33,6 +33,13 @@ class Ui_Dialog(object):
         font.setPointSize(12)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_2.setGeometry(QtCore.QRect(340, 290, 131, 30))
+        font = QtGui.QFont()
+        font.setFamily("Ubuntu Condensed")
+        font.setPointSize(12)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -40,6 +47,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Голосовой запрос"))
-        self.label.setText(_translate("Dialog", "Задайте свой вопрос Захару"))
+        self.label.setText(_translate("Dialog", "Нажмите на кнопку, а потом начните говорить"))
         self.pushButton.setText(_translate("Dialog", "Вернуться обратно"))
+        self.pushButton_2.setText(_translate("Dialog", "Задать вопрос"))
 

@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QApplication
 from list_d import Ui_Dialog
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtGui import QPixmap
-from PIL import Image, ImageQt
 import json
 
 
