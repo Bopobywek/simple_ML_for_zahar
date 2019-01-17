@@ -65,7 +65,7 @@ class Cart(QDialog, Ui_Dialog):
         msg.move(self.x(), self.y())
         msg.setText("Цена:")
         msg.setWindowTitle("Цена этого продукта")
-        msg.setText("{}P".format(cost))
+        msg.setText("{}₽".format(cost))
         msg.setStandardButtons(QMessageBox.Cancel)
         msg.exec_()
 
@@ -95,9 +95,9 @@ class Cart(QDialog, Ui_Dialog):
         for el in self.deleted_items:
             cost += cost_data[el]
         if cost <= 9999:
-            self.label_2.setText("Итого: {}Р".format(cost))
+            self.label_2.setText("Итого: {}₽".format(cost))
         else:
-            self.label_2.setText("Итого: 9999Р+".format(cost))
+            self.label_2.setText("Итого: 9999₽+".format(cost))
 
 
 if __name__ == '__main__':
