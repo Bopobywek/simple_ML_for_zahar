@@ -6,6 +6,7 @@ from cart_d import Ui_Dialog
 from auth import Auth
 from codereader import CodeReader
 from lister import Lister
+from voice_handler import VoiceHandler
 
 
 class Cart(QDialog, Ui_Dialog):
@@ -44,16 +45,7 @@ class Cart(QDialog, Ui_Dialog):
             self.user_cart.takeItem(self.user_cart.row(el))
 
     def use_microphone(self):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Critical)
-        msg.resize(300, 300)
-        msg.move(self.x(), self.y())
-        msg.setText("Ошибка")
-        msg.setWindowTitle("Ошибка")
-        msg.setText("В публичной версии эта функция не работает."
-                    " Требуются приватные ключи авторизации в API")
-        msg.setStandardButtons(QMessageBox.Cancel)
-        msg.exec_()
+        VoiceHandler().exec_()
 
     def exit_from_acc(self):
         self.main_menu.status = False
@@ -73,7 +65,7 @@ class Cart(QDialog, Ui_Dialog):
         msg.move(self.x(), self.y())
         msg.setText("Цена:")
         msg.setWindowTitle("Цена этого продукта")
-        msg.setText("{}P".format(cost))
+        msg.setText("{}₽".format(cost))
         msg.setStandardButtons(QMessageBox.Cancel)
         msg.exec_()
 
@@ -103,9 +95,9 @@ class Cart(QDialog, Ui_Dialog):
         for el in self.deleted_items:
             cost += cost_data[el]
         if cost <= 9999:
-            self.label_2.setText("Итого: {}Р".format(cost))
+            self.label_2.setText("Итого: {}₽".format(cost))
         else:
-            self.label_2.setText("Итого: 9999Р+".format(cost))
+            self.label_2.setText("Итого: 9999₽+".format(cost))
 
 
 if __name__ == '__main__':
