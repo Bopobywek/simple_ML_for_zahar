@@ -14,6 +14,12 @@ class Lister(QDialog, Ui_Dialog):
         self.setupUi(self)
         self.rules = {"pushButton": "9785090459099", "pushButton_2": "9785346038276",
                       "pushButton_3": "4680211153564"}
+        self.label.setPixmap(QPixmap("data/pictures/dm_9.jpg"))
+        self.label.setScaledContents(True)
+        self.label_2.setPixmap(QPixmap("data/pictures/wb_phys.jpg"))
+        self.label_2.setScaledContents(True)
+        self.label_3.setPixmap(QPixmap("data/pictures/wb.jpeg"))
+        self.label_3.setScaledContents(True)
         self.pushButton_3.clicked.connect(self.run)
         self.pushButton_2.clicked.connect(self.run)
         self.pushButton.clicked.connect(self.run)

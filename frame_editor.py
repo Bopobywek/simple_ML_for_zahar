@@ -52,7 +52,8 @@ class FrameEditor(object):
                 for i in barcodes:
                     bar = i.data.decode("utf-8")
                     if self.target == "acc":
-                        if "may-store.ru" in bar:
+                        data = json.loads(open("data/cards.json").read())
+                        if any([x in bar for x in data.keys()]):
                             return True
                     else:
                         data = json.loads(open("data/products.json").read())

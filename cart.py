@@ -21,6 +21,7 @@ class Cart(QDialog, Ui_Dialog):
         self.create_list.clicked.connect(self.create_list_user)
         self.audio_request.clicked.connect(self.use_microphone)
         self.list_of_items = []
+        self.deleted_items = []
         self.call_a_shopman.clicked.connect(self.help)
 
     def start(self):
@@ -32,9 +33,11 @@ class Cart(QDialog, Ui_Dialog):
         reader.exec_()
         if reader.info_product:
             self.user_cart.addItem(reader.info_product["name"])
-        if reader.info_product["name"] in self.list_of_items:
-            self.user_list.takeItem(self.list_of_items.index(reader.info_product["name"]))
-            del self.list_of_items[self.list_of_items.index(reader.info_product["name"])]
+            if reader.info_product["name"] in self.list_of_items:
+                self.user_list.takeItem(self.list_of_items.index(reader.info_product["name"]))
+                self.deleted_items.append(self.list_of_items[self.list_of_items.index(
+                    reader.info_product["name"])])
+                del self.list_of_items[self.list_of_items.index(reader.info_product["name"])]
 
     def delete_product(self):
         for el in self.user_cart.selectedItems():
@@ -73,7 +76,7 @@ class Cart(QDialog, Ui_Dialog):
         msg.setText("{}P".format(cost))
         msg.setStandardButtons(QMessageBox.Cancel)
         msg.exec_()
-        
+
     def help(self):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
@@ -94,8 +97,10 @@ class Cart(QDialog, Ui_Dialog):
         for el in self.list_of_items:
             self.user_list.addItem(el)
         cost = 0
+        cost_data = json.loads(open("data/products2.json").read())
         for el in self.list_of_items:
-            cost_data = json.loads(open("data/products2.json").read())
+            cost += cost_data[el]
+        for el in self.deleted_items:
             cost += cost_data[el]
         if cost <= 9999:
             self.label_2.setText("Итого: {}Р".format(cost))
@@ -108,4 +113,3 @@ if __name__ == '__main__':
     cart = Cart()
     cart.show()
     sys.exit(app.exec_())
-
