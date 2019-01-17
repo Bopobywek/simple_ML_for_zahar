@@ -6,6 +6,7 @@ from cart_d import Ui_Dialog
 from auth import Auth
 from codereader import CodeReader
 from lister import Lister
+from voice_handler import VoiceHandler
 
 
 class Cart(QDialog, Ui_Dialog):
@@ -44,16 +45,7 @@ class Cart(QDialog, Ui_Dialog):
             self.user_cart.takeItem(self.user_cart.row(el))
 
     def use_microphone(self):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Critical)
-        msg.resize(300, 300)
-        msg.move(self.x(), self.y())
-        msg.setText("Ошибка")
-        msg.setWindowTitle("Ошибка")
-        msg.setText("В публичной версии эта функция не работает."
-                    " Требуются приватные ключи авторизации в API")
-        msg.setStandardButtons(QMessageBox.Cancel)
-        msg.exec_()
+        VoiceHandler().exec_()
 
     def exit_from_acc(self):
         self.main_menu.status = False
