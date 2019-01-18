@@ -1,12 +1,16 @@
 import sys
+import os
 import json
+
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QDialog, QMessageBox
+
 from cart_d import Ui_Dialog
 from auth import Auth
 from codereader import CodeReader
 from lister import Lister
 from voice_handler import VoiceHandler
+from predict_emotion import recognition_emotion_from_voice
 
 
 class Cart(QDialog, Ui_Dialog):

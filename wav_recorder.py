@@ -7,10 +7,9 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
-WAVE_OUTPUT_FILENAME = "data/voice/voice_{}.wav".format(int(time.time()))
 
 
-def record():
+def record(filename):
     p = pyaudio.PyAudio()
 
     stream = p.open(format=FORMAT,
@@ -41,7 +40,7 @@ def record():
     stream.close()
     p.terminate()
 
-    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf = wave.open(filename, 'wb')
     wf.setnchannels(CHANNELS)
     wf.setsampwidth(p.get_sample_size(FORMAT))
     wf.setframerate(RATE)
