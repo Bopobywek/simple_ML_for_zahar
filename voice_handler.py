@@ -1,10 +1,11 @@
 import sys
+import time
 
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QDialog
 
 from voice_handler_d import Ui_Dialog
-from wav_recorder import record, CHUNK, FORMAT, CHANNELS, RATE, WAVE_OUTPUT_FILENAME
+from wav_recorder import record, CHUNK, FORMAT, CHANNELS, RATE
 
 
 class VoiceHandler(QDialog, Ui_Dialog):
@@ -16,7 +17,7 @@ class VoiceHandler(QDialog, Ui_Dialog):
         self.pushButton_2.clicked.connect(self.recording)
 
     def recording(self):
-        record()
+        record("data/voice/voice_{}.wav".format(int(time.time())))
         self.off()
 
     def off(self):

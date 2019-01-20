@@ -1,12 +1,16 @@
 import sys
+import os
 import json
+
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QDialog, QMessageBox
+
 from cart_d import Ui_Dialog
 from auth import Auth
 from codereader import CodeReader
 from lister import Lister
 from voice_handler import VoiceHandler
+from predict_emotion import recognition_emotion_from_voice
 
 
 class Cart(QDialog, Ui_Dialog):
@@ -14,6 +18,7 @@ class Cart(QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.warning()
         self.start()
         self.exit_from_account.clicked.connect(self.exit_from_acc)
         self.add_to_cart.clicked.connect(self.append_product)
@@ -24,6 +29,17 @@ class Cart(QDialog, Ui_Dialog):
         self.list_of_items = []
         self.deleted_items = []
         self.call_a_shopman.clicked.connect(self.help)
+
+    def warning(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.resize(300, 300)
+        msg.move(self.x(), self.y())
+        msg.setWindowTitle("Warning")
+        msg.setText("В публичной версии некоторые функции работают некорректно."
+                    " Требуются приватные ключи авторизации в API")
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()
 
     def start(self):
         self.main_menu = Auth()
